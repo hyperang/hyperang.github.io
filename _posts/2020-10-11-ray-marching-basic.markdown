@@ -4,7 +4,7 @@ title:  "Ray Marching Basic"
 date:   2020-10-11 18:00:00 +0800
 tags: ray marching
 color: rgb(255,90,90)
-cover: '../assets/Ray Marching Basic/out_put_3.jpg'
+cover: '../assets/First Ball.jpg'
 subtitle: 'First Ball'
 ---
 Ray Marching入门，主要参考了 tutorial：https://www.youtube.com/watch?v=PGtv-dBi2wE&t=273s
@@ -260,7 +260,7 @@ float GetLight(vec3 p) {
 
 
 
-![1-10](..\assets\Ray Marching Basic\out_put_3.jpg)
+![1-10](..\assets\Ray Marching Basic\First Ball.jpg)
 
 
 
