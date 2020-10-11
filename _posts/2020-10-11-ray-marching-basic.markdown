@@ -2,7 +2,7 @@
 layout: post
 title:  "Ray Marching Basic"
 date:   2020-10-11 18:00:00 +0800
-tags: ray marching
+tags: 
 color: rgb(255,90,90)
 cover: '../assets/Ray%20Marching%20Basic/First%20Ball.jpg'
 subtitle: 'First Ball'
@@ -67,7 +67,7 @@ RayMarch 函数计算射线碰到的第一个物体的距离。计算过程如�
 
 
 
-<img src="{{site.url}}\assets\Ray Marching Basic\ray marching 1 sphere tracing.jpg" />
+![jpg]({{site.url}}\assets\Ray Marching Basic\ray marching 1 sphere tracing.jpg)
 
 
 
@@ -95,7 +95,7 @@ float RayMarch(vec3 ro, vec3 rd) {
 
 
 
-![1-3]({{site.url}}\assets\Ray Marching Basic\ray marching 2 distance.jpg)
+![jpg]({{site.url}}\assets\Ray Marching Basic\ray marching 2 distance.jpg)
 
 
 
@@ -121,7 +121,7 @@ float GetDist(vec3 p) {
 
 
 
-![1-4]({{site.url}}\assets\Ray Marching Basic\out_put_1.PNG)
+![png]({{site.url}}\assets\Ray Marching Basic\out_put_1.PNG)
 
 
 
@@ -131,7 +131,7 @@ float GetDist(vec3 p) {
 
 
 
-![1-5]({{site.url}}\assets\Ray Marching Basic\ray marching 4 lighting.jpg)
+![jpg]({{site.url}}\assets\Ray Marching Basic\ray marching 4 lighting.jpg)
 
 
 
@@ -139,7 +139,7 @@ float GetDist(vec3 p) {
 
 
 
-![1-6]({{site.url}}\assets\Ray Marching Basic\ray marching 5 lighting's code.jpg)
+![jpg]({{site.url}}\assets\Ray Marching Basic\ray marching 5 lighting's code.jpg)
 
 
 
@@ -216,7 +216,7 @@ fragColor = vec4(col,1.0);
 
 
 
-![1-8]({{site.url}}\assets\Ray Marching Basic\out_put_2.jpg)
+![jpg]({{site.url}}\assets\Ray Marching Basic\out_put_2.jpg)
 
 
 
@@ -226,7 +226,7 @@ fragColor = vec4(col,1.0);
 
 
 
-![1-9]({{site.url}}\assets\Ray Marching Basic\ray marching 6 shadow.jpg)
+![jpg]({{site.url}}\assets\Ray Marching Basic\ray marching 6 shadow.jpg)
 
 
 
@@ -260,7 +260,7 @@ float GetLight(vec3 p) {
 
 
 
-![1-10]({{site.url}}\assets\Ray Marching Basic\First Ball.jpg)
+![jpg]({{site.url}}\assets\Ray Marching Basic\First Ball.jpg)
 
 
 
