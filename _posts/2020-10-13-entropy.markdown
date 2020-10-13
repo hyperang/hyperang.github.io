@@ -130,5 +130,102 @@ $$D(p||q)\neq D(q||p)$$
 
 *Kullback–Leibler distance*并不准确，应为K-L散度，即*Kullback–Leibler divergence*。
 
+## 连续随机变量的熵
 
+考虑一个定义在$[a,b]$的连续随机变量$X$，其概率密度函数为$p(x)$，有$\int_a^b p(x)d(x)=1$。
+
+把$X$的取值区间$[a,b]$等分为$n$个小区间，小区间宽度为$\triangle =\frac{(b-a)}{n}$，则$X$取到第$i$个小区间$x_i$的概率为$p(x_i)\triangle$，$x_i$为第$i$个小区间中的一点，于是有分割后的离散随机变量$X_n$的分布：
+
+
+
+| $x_1$             | $x_2$             | ...  | $x_n$             |
+| ----------------- | ----------------- | ---- | ----------------- |
+| $p(x_1)\triangle$ | $p(x_2)\triangle$ | ...  | $p(x_n)\triangle$ |
+
+
+
+由离散熵的定义可得：
+
+$$
+\begin{align}
+H(X_n) &= -\sum_{i=1}^n [p(x_i)\triangle] \log [p(x_i)\triangle]\\
+&=-\sum_{i=1}^n p(x_i)\triangle \log p(x_i) -\sum_{i=1}^n p(x_i)\triangle \log \triangle\\
+&=-\sum_{i=1}^n p(x_i)\triangle \log p(x_i) - \log \triangle
+
+\end{align}
+$$
+
+
+当$n\rightarrow \infty$，$\triangle \rightarrow 0$时，$X_n$接近于连续随机变量$X$，此时：
+
+$$
+\begin{align}
+H(X)&=\lim_{\triangle \rightarrow 0\\n\rightarrow \infty} H(X_n)\\
+&=\lim_{\triangle \rightarrow 0\\n\rightarrow \infty}\{-\sum_{i=1}^n p(x_i)\triangle \log p(x_i) - \log \triangle\}\\
+&=-\int_a^bp(x)\log p(x)dx-\lim_{\triangle \rightarrow 0}\log \triangle\\
+&=H_C(X)-\infty
+\end{align}
+$$
+
+
+$H_C(X)$即为连续随机变量$X$的熵，也叫**微分熵**。
+
+假设$X\sim N(\mu,\sigma ^2)$，$X$的熵为：
+
+$$
+\begin{align}
+H_C(X)&=\int_{-\infty}^{+\infty}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(x-\mu)^2}{2\sigma ^2}}[\ln \frac{1}{\sqrt{2\pi}\sigma}-\frac{1}{2\sigma ^2}(x-\mu)^2]dx\\
+&=\ln\sqrt{2\pi}\sigma+\frac{1}{2}\\
+&=\frac{1}{2}\ln 2\pi e\sigma ^2
+
+\end{align}
+$$
+
+$H_C(X)$仅与方差有关，与期望无关。
+
+**$X$的熵并不依赖它的实际取值**。
+
+
+
+## 连续分布的相对熵
+
+$f(x),g(x)$为两个连续分布的概率密度函数，$f(x),g(x)$的相对熵定义为：
+$$
+D_{KL}=\int f(x) \log\frac{f(x)}{g(x)}dx
+$$
+
+
+## 相对熵非负的证明
+
+假设对$f(x)$有：
+
+$$
+\int_{-\infty}^{+\infty}f(x)dx=1
+$$
+
+
+如果$g$时任意实可测函数且函数$\phi$为凸，那么有**Jensen不等式**如下：
+
+$$
+\phi(\int_{-\infty}^{+\infty}g(x)f(x)dx)\leq\int_{-\infty}^{+\infty}\phi(g(x))f(x)dx
+$$
+
+
+$-\ln x$是严格凸函数。
+
+且$\int q(x)dx=1$。
+
+令$\phi (x)=- \ln (x)$，$g(x)=\frac{q(x)}{p(x)}$，$f(x)=p(x)$。
+
+有：
+
+$$
+\begin{align}
+D_{KL}&=\int f(x) \ln\frac{p(x)}{q(x)}dx\\
+&=\int f(x) {-\ln\frac{q(x)}{p(x)}}dx\\
+&\geq-\ln [\int q(x)dx]\\&=0
+\end{align}
+$$
+
+当且仅当$p(x)=q(x)$时，等号成立。
 
