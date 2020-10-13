@@ -1,0 +1,134 @@
+---
+layout: post
+title:  "熵和K-L散度"
+date:   2020-10-13 15:35:10 +0800
+tags: 
+color: rgb(255,90,90)
+cover: '../assets/entropy/Shannon.jpg'
+subtitle: ''
+---
+## 信息量
+
+一个事件的信息量仅与这个事件发生的概率有关。
+
+一个事件的信息量与它发生的概率负相关。
+
+明天太阳从东边升起是一个必然事件，故它的信息量为零；明天下雨是一个不确定的事件，故它的信息量大于零，而对于不同的地区，如干燥少雨的北京和雨量丰沛的上海，前者明天下雨的概率小于后者，故北京明天下雨的信息量大于上海明天下雨的信息量。
+
+信息量的计算公式：
+
+$$
+I(X) = - \log P(X)
+$$
+
+
+## 信息熵（entropy）
+
+熵是随机变量不确定度的度量（a measure of the uncertainty of a random variable）。
+
+$$X$$
+是一个离散型随机变量（discrete random variable），其取值空间（alphabet）为
+$$\chi$$
+，其概率密度函数
+$$p(x)=\Pr \{ X=x\},x\in \chi$$
+，此处简写了概率密度函数
+$$p_X(x)$为$p(x)$$
+。
+
+$X$的熵$H(X)$定义为：
+
+$$
+H(X)=-\sum_{x\in\chi}p(x)\log p(x)
+$$
+
+对数底为$2$，单位为比特。
+
+若对数底为$e$，单位为奈特（nat）。
+
+当$x\rightarrow 0$时，$x \log x \rightarrow 0$，故约定$0 \log 0 = 0$，即加上零概率的项不改变熵的值。
+
+熵是随机变量$X$的分布的函数（entropy is a functional of the distribution of $X$），它并不依赖$X$的实际取值，而仅依赖于$X$的概率分布。
+
+
+
+当$X$只能取$0,1$，$X\sim Bern(p)$，即：
+
+$$
+X = \left\{
+	\begin{array}{lr}
+		1& \text{with probability}&p\\
+		0&\text{with probability}&1-p
+	\end{array}
+\right.
+$$
+
+$X$的熵为：
+
+$$
+H(X)=-p\log p - (1-p)\log (1-p)
+$$
+
+$H(X)$的图像为：
+
+![png]({{site.url}}\assets\entropy\1.png)
+
+当$p=0$或$p=1$时，$H(X)=0$，随机变量完全没有不确定性。
+
+当$p=0.5$时，$H(X)=1$，随机变量的不确定性最大。
+
+
+
+## 信息熵与信息量
+
+用$E$表示数学期望。
+
+$X \sim p(x)$，则随机变量$g(X)$的期望为：
+
+$$
+E_pg(X)=\sum_{x \in \chi}g(x)p(x)
+$$
+
+简记为$E_g (X)$。
+
+令$g(X)=I(X)=-\log P(X)$，此时$E_g (X) = H(X)$，即：
+
+$X$的熵可以解释为$X$的信息量的期望。
+
+
+
+## 相对熵（relative entropy）
+
+相对熵是两个随机分布之间的距离的度量（The *relative entropy* is a measure of the distance between two distributions）。
+
+$p(x)$和$q(x)$是两个概率密度函数，则$p(x)$和$q(x)$间的相对熵或 *Kullback–Leibler distance*定义为： 
+
+$$
+\begin{align}
+D(p||q)&=\sum_{x \in \chi}p(x)\log \frac {p(x)}{q(x)}\\
+	   &=E_p\log \frac{p(X)}{q(X)}
+\end{align}
+$$
+
+亦可写为：
+
+$$
+\begin{align}
+D_{KL}(p||q)&= \sum_{x \in \chi}p(x)(\log p(x)-\log q(x)) \\
+		    &=E_p[\log p(X)-\log q(X)]
+\end{align}
+$$
+
+
+
+相对熵可理解为似然比的对数期望。它度量当真实分布为$p$而假定分布为$q$时的无效性。
+
+相对熵非负且当且仅当$p=q$时为零。
+
+相对熵不对称（
+$$D(p||q)\neq D(q||p)$$
+）且不满足三角不等式，故它并非两个分布之间的真正距离。
+
+*Kullback–Leibler distance*并不准确，应为K-L散度，即*Kullback–Leibler divergence*。
+
+
+
