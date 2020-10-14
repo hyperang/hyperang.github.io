@@ -2,7 +2,7 @@
 layout: post
 title:  "Ray Marching Basic"
 date:   2020-10-11 18:00:00 +0800
-tags: 
+tags: 图形学
 color: rgb(255,90,90)
 cover: '../assets/Ray%20Marching%20Basic/First%20Ball.jpg'
 subtitle: 'First Ball'
