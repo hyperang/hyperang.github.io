@@ -2,24 +2,12 @@
 layout: post
 title:  "熵和K-L散度"
 date:   2020-10-13 15:35:10 +0800
-tags: 
+tags: 信息论
 color: rgb(255,90,90)
 cover: '../assets/entropy/Shannon.jpg'
 subtitle: '信息论中的几个基础概念'
 ---
-## 信息量
 
-一个事件的信息量仅与这个事件发生的概率有关。
-
-一个事件的信息量与它发生的概率负相关。
-
-明天太阳从东边升起是一个必然事件，故它的信息量为零；明天下雨是一个不确定的事件，故它的信息量大于零，而对于不同的地区，如干燥少雨的北京和雨量丰沛的上海，前者明天下雨的概率小于后者，故北京明天下雨的信息量大于上海明天下雨的信息量。
-
-信息量的计算公式：
-
-$$
-I(X) = - \log P(X)
-$$
 
 
 ## 信息熵（entropy）
@@ -32,7 +20,7 @@ $$\chi$$
 ，其概率密度函数
 $$p(x)=\Pr \{ X=x\},x\in \chi$$
 ，此处简写了概率密度函数
-$$p_X(x)$为$p(x)$$
+$p_X(x)$为$p(x)$
 。
 
 $X$的熵$H(X)$定义为：
@@ -78,8 +66,6 @@ $H(X)$的图像为：
 
 
 
-## 信息熵与信息量
-
 用$E$表示数学期望。
 
 $X \sim p(x)$，则随机变量$g(X)$的期望为：
@@ -90,10 +76,61 @@ $$
 
 简记为$E_g (X)$。
 
-令$g(X)=I(X)=-\log P(X)$，此时$E_g (X) = H(X)$，即：
+令$g(X)=-\log P(X)$，此时$E_g (X) = H(X)$，即：
 
-$X$的熵可以解释为$X$的信息量的期望。
+$X$的熵可以解释为$-\log P(X)$的期望。
 
+
+
+
+
+## 联合熵（joint entropy）
+
+对于服从联合分布为$p(x,y)$的一对离散随机变量$(X,Y)$，其联合熵$H(X,Y)$定义为：
+
+$$
+H(X,Y)=-\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y)\log p(x,y)
+$$
+
+写成分布的形式为：
+
+$$
+H(X,Y)=-E\log p(X,Y)
+$$
+
+
+## 条件熵（conditional entropy）
+
+对于服从联合分布为$p(x,y)$的一对离散随机变量$(X,Y)$，其条件熵$H(Y|X)$定义为：
+
+$$
+\begin{align}
+H(Y|X)&=\sum_{x \in \chi}p(x)H(Y|X=x)\\
+&=-\sum_{x \in \chi}p(x)\sum_{y \in \Upsilon}p(y|x)\log p(y|x)\\
+&=-\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y)\log p(y|x)\\
+&=-E\log p(Y|X)
+\end{align}
+$$
+
+
+联合熵与条件熵的链式法则：
+
+$$
+\begin{align}
+H(X,Y)&=-\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y)\log p(x,y)\\
+&=-\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y)\log p(x)p(y|x)\\
+&=-\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y)\log p(x)-\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y)\log p(y|x)\\
+&=-\sum_{x \in \chi}p(x)\log p(x)-\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y)\log p(y|x)\\
+&=H(X)+H(Y|X)
+
+\end{align}
+$$
+
+推导过程中的条件概率公式：
+
+$$
+p(x,y)=p(x|y)p(y)=p(y|x)p(x)
+$$
 
 
 ## 相对熵（relative entropy）
@@ -129,6 +166,80 @@ $$D(p||q)\neq D(q||p)$$
 ）且不满足三角不等式，故它并非两个分布之间的真正距离。
 
 *Kullback–Leibler distance*并不准确，应为K-L散度，即*Kullback–Leibler divergence*。
+
+
+
+
+
+## 互信息（mutual information）
+
+考虑两个随机变量$X$和$Y$，它们的联合概率密度函数为$p(x,y)$，其边际概率密度函数分别为$p(x)$和$p(y)$。互信息$I(X;Y)$为联合分布$p(x,y)$和乘积分布$p(x)p(y)$之间的相对熵：
+
+$$
+\begin{align}
+I(X;Y)&=D(p(x,y)||p(x)p(y))\\
+&=\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y) \log \frac{p(x,y)}{p(x)p(y)}\\
+&=E_{p(x,y)}\log \frac{p(X,Y)}{p(X)p(Y)}
+\end{align}
+$$
+
+
+## 熵与互信息的关系
+
+可以将互信息$I(X;Y)$重新写为：
+
+$$
+\begin{align}
+I(X,Y)&=\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y) \log \frac{p(x,y)}{p(x)p(y)}\\
+&=\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y) \log \frac{p(x|y)p(y)}{p(x)p(y)}\\
+&=\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y) \log \frac{p(x|y)}{p(x)}\\
+&=-\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y) \log p(x)-(-\sum_{x \in \chi}\sum_{y \in \Upsilon}p(x,y)\log p(x|y))\\
+&=H(X)-H(X|Y)
+
+\end{align}
+$$
+
+互信息$I(X;Y)$可以理解为在给定$Y$知识的条件下$X$的不确定度的缩减量。
+
+对称地：
+
+$$
+I(X,Y)=H(Y)-H(Y|X)
+$$
+
+$X$含有$Y$的信息量与$Y$含有$X$的信息量相同。
+
+
+
+随机变量与自身的互信息为该随机变量的熵：
+
+$$
+I(X;X)=H(X)-H(X|X)=H(X)
+$$
+
+故熵也称为自信息（self-information）。
+
+
+
+## 信息熵与信息量
+
+这里厘清几个很容易混淆的概念。
+
+首先思考一个问题，一个随机变量的熵越大，它的信息量是越大还是越小？
+
+熵即自信息，于是自然地有：**熵越大信息量越大**。如何在现实中理解这个解释呢？这里的信息量是指信息的承载能力。如果一个多态系统只有一个态概率为$1$，那么它的熵为$0$，这个系统也无法承载任何信息（无法进行编码）。如果它的多个状态等概率，此时熵最大，信息的承载能力越强。
+
+假设一个考试的场景，考卷上出现了一道你完全没有见过的选择题，此时你选择问一下坐在你前面的人，他回答说每个选项正确的概率都相同。他的回答熵是最大的，但是他的回答不包含任何的信息！你还是不会做这道题。这又是怎么一回事儿呢？
+
+这是因为上面场景中的信息量和之前信息量的定义不同。
+
+此时的信息量可以改称为知识，是不确定度的缩减量，即互信息。他的回答中并不包含任何的知识，不能帮你做这道题。如果你又问了坐在你后面的人，她的回答是八成概率选 A，不可能选 D，她的回答让你可以先在答题卡上写A了，假设她的话可信，那么你对这道题的认识改变了，这个系统的熵减小了。
+
+知识的输入使得这个问题的信息熵减小了。如果有第三个人跟你说这道题选D，那么他的话就毫无意义了（假设坐在你后面的人的话是可信的）。如果你本身就会做这道题，那么这道题对你来说变成了一个熵为$0$的系统，则所有人对你说的关于这道题的话都没有意义了（熵已经不会再减小了）。
+
+
+
+
 
 ## 连续随机变量的熵
 
@@ -168,7 +279,7 @@ H(X)&=\lim_{\triangle \rightarrow 0\\n\rightarrow \infty} H(X_n)\\
 $$
 
 
-$H_C(X)$即为连续随机变量$X$的熵，也叫**微分熵**。
+$H_C(X)$即为连续随机变量$X$的熵，也叫**微分熵(differential entropy)**。
 
 假设$X\sim N(\mu,\sigma ^2)$，$X$的熵为：
 
