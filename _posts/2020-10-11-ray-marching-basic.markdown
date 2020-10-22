@@ -7,7 +7,10 @@ color: rgb(255,90,90)
 cover: '../assets/Ray%20Marching%20Basic/First%20Ball.jpg'
 subtitle: 'First Ball'
 ---
-Ray Marching入门，主要参考了 tutorial：https://www.youtube.com/watch?v=PGtv-dBi2wE&t=273s
+Ray Marching入门，主要整理了 [The Art of Code][link-1] 的 [tutorial][link-2]。
+
+[link-1]: https://www.youtube.com/channel/UCcAlTqd9zID6aNX3TzwxJXg
+[link-2]: https://www.youtube.com/watch?v=PGtv-dBi2wE&t=273s
 
 
 
@@ -38,9 +41,17 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
 
 主函数 mainImage 输入为一个类型为二维向量的片元坐标，输出一个类型为四维向量的片元颜色。函数每一次计算一个像素的颜色值。
 
-第 4 行用输入的片元坐标除以屏幕的分辨率得到归一化的坐标 uv。
 
-第 4 行的代码可以等同于以下代码：
+
+代码
+
+```glsl
+vec2 uv = (fragCoord - 0.5 * iResolution.xy) / min(iResolution.x, iResolution.y);
+```
+
+用输入的片元坐标除以屏幕的分辨率得到归一化的坐标 uv。
+
+可以等同于以下代码：
 
 ```glsl
 // 将坐标转换到[0, 1]之间
@@ -55,9 +66,25 @@ if (iResolution.x > iResolution.y) {
 }
 ```
 
-第 8 行定义相机的位置。第 10 行定义本次计算的像素的射线的方向，由于屏幕中心的坐标已经对应了世界坐标中的原点，故相机的视锥如下图，rd 的 z 值相当于相机的焦距。
 
-第 12 行调用 RayMarch 函数计算射线碰到的第一个物体的距离。第 14 行将输出颜色的 rgb 都设为距离 d，得到一张灰度图，越靠近相机的物体越黑，反之月白。第 13 行通过调整 d 的值来调节物体的明暗。
+
+代码
+
+```glsl
+vec3 ro = vec3(0.0, 1.0, -0.5);
+```
+
+定义相机的位置。第 10 行定义本次计算的像素的射线的方向，由于屏幕中心的坐标已经对应了世界坐标中的原点，故相机的视锥如下图，rd 的 z 值相当于相机的焦距。
+
+
+
+代码
+
+```glsl
+float d = RayMarch(ro, rd);
+```
+
+调用 RayMarch 函数计算射线碰到的第一个物体的距离。第 14 行将输出颜色的 rgb 都设为距离 d，得到一张灰度图，越靠近相机的物体越黑，反之月白。第 13 行通过调整 d 的值来调节物体的明暗。
 
 
 
@@ -89,7 +116,13 @@ float RayMarch(vec3 ro, vec3 rd) {
 
 
 
-第 2 行定义了初始距离（distance origin）为 0。在 marching loop 中，定义位置变量 p，其初始值为 ro，即上图中相机所在的蓝色标记处。通过 GetDist 函数得到 p 到任以物体的最小距离 dS 并更新总距离 dO 和位置 p（上图中射线上的蓝色标记）。如果总距离超出范围或者最小距离小于判定则返回。
+代码
+
+```glsl
+float dO = 0.;
+```
+
+定义了初始距离（distance origin）为 0。在 marching loop 中，定义位置变量 p，其初始值为 ro，即上图中相机所在的蓝色标记处。通过 GetDist 函数得到 p 到任以物体的最小距离 dS 并更新总距离 dO 和位置 p（上图中射线上的蓝色标记）。如果总距离超出范围或者最小距离小于判定则返回。
 
 在 GetDist 函数中，我们定义出球和地面的位置并返回与某个位置最近的物体的距离。
 
@@ -114,6 +147,12 @@ float GetDist(vec3 p) {
 ```
 
 
+
+代码
+
+```glsl
+vec4 s = vec4(0, 1, 6, 1);
+```
 
 第 2 行定义一个球，前三维是球心的坐标，第四维是球的半径。地面设定为 xOz，故 p 到地面的距离就是 p.y。p 到球面的距离为 p 到球心的距离减去球的半径。由于只有地面和球两个物体，于是返回到两者的距离中小的那个。
 
@@ -165,19 +204,47 @@ float GetLight(vec3 p) {
 
 
 
-第 2 行定义光源的位置 lightPos。
+代码
 
-第 3 行使光源旋转。
+```glsl
+vec3 lightPos = vec3(1, 5, 6);
+```
 
-第 4 行定义 light vector，即光源位置减去目标位置并归一化。
+定义光源的位置 lightPos。
 
-第 5 行调用 GetNormal 函数定义 normal vector。
+
+
+代码
+
+```glsl
+lightPos.xz += vec2(sin(iTime), cos(iTime)) * 2.;
+```
+
+使光源旋转。
+
+
+
+代码
+
+```glsl
+vec3 l = normalize(lightPos - p);
+```
+
+定义 light vector，即光源位置减去目标位置并归一化。
+
+
+
+代码
+
+```glsl
+vec3 n = GetNormal(p);
+```
+
+调用 GetNormal 函数定义 normal vector。
 
 
 
 定义 GetNormal 函数，输入一个三维向量的位置 p，输出一个三维向量类型的 p 位置的法向量。
-
-
 
 ```glsl
 vec3 GetNormal(vec3 p) {
@@ -194,9 +261,25 @@ vec3 GetNormal(vec3 p) {
 
 
 
-第 2 行调用 GetDist 函数得到位置 p 到物体的最小距离 d。
+代码
 
-第 5 行计算 p 周围的点到物体表面的距离。通过分别计算三个轴方向上附近（固定距离）的点到表面的距离，用 p 点到表面的距离减去这三个距离作为三维向量对应轴的值，再进行归一化得到法向量。
+```glsl
+float d = GetDist(p);
+```
+
+调用 GetDist 函数得到位置 p 到物体的最小距离 d。
+
+
+
+代码
+
+```glsl
+vec3 n = d - vec3(GetDist(p-e.xyy),
+                  GetDist(p-e.yxy),
+                  GetDist(p-e.yyx));
+```
+
+计算 p 周围的点到物体表面的距离。通过分别计算三个轴方向上附近（固定距离）的点到表面的距离，用 p 点到表面的距离减去这三个距离作为三维向量对应轴的值，再进行归一化得到法向量。
 
 
 
@@ -250,11 +333,33 @@ float GetLight(vec3 p) {
 
 
 
-第 7 行将光线的值限定在 0 到 1 之间。
+代码
 
-第 8 行调用 RayMarch 函数计算 p 位置沿着 light vector 方向到任何物体的距离。
+```glsl
+float dif = clamp(dot(n, l), 0.0, 1.0);
+```
 
-第 9 行判断：如果位于阴影中则距离 d 小于位置 p 和光源位置 lightPos 的距离，将光线的值调整为黑色。
+将光线的值限定在 0 到 1 之间。
+
+
+
+代码
+
+```glsl
+float d = RayMarch(p + n * SURF_DIST * 2., l);
+```
+
+调用 RayMarch 函数计算 p 位置沿着 light vector 方向到任何物体的距离。
+
+
+
+代码
+
+```glsl
+if(d < length(lightPos - p)) dif *= 0.1;
+```
+
+判断：如果位于阴影中则距离 d 小于位置 p 和光源位置 lightPos 的距离，将光线的值调整为黑色。
 
 最后的效果如下图。
 
