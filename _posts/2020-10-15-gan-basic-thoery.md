@@ -67,30 +67,30 @@ $$
 由于$P_{data}(x)$与$\theta$无关，故
 
 $$
-\begin{align}
+\begin{aligned}
 \theta ^* &= \mathop {argmax}_\theta \sum_{i=1}^m P_{data}(x^i)\log P_G(x^i;\theta)\\
 &=\mathop {argmax}_\theta E_{X\sim P_{data}}[\log P_G(X;\theta)]
 
-\end{align}
+\end{aligned}
 $$
 
 把期望写成积分的形式
 
 $$
-\begin{align}
+\begin{aligned}
 \theta ^* &=\mathop {argmax}_\theta \int_x P_{data}(x)\log P_G(x;\theta)dx
-\end{align}
+\end{aligned}
 $$
 
 由于$P_{data}(x)$与$\theta$无关，上式可加一无关项
 
 $$
-\begin{align}
+\begin{aligned}
 \theta ^* &=\mathop {argmax}_\theta \int_x P_{data}(x)\log P_G(x;\theta)dx-\int_x P_{data}(x)\log P_{data}(x)dx\\
 &=\mathop {argmax}_\theta\int_x P_{data}(x) \log\frac{P_G(x;\theta)}{P_{data}(x)}dx\\
 &=\mathop {argmax}_\theta [-\int_x P_{data}(x) \log\frac{P_{data}(x)}{P_G(x;\theta)}dx]\\
 &=\mathop {argmin}_\theta D_{KL}(P_{data}||P_G)
-\end{align}
+\end{aligned}
 $$
 
 证毕。
@@ -152,13 +152,13 @@ $V$的最大值与*Jensen-Shannon divergence*相关。
 证明：
 
 $$
-\begin{align}
+\begin{aligned}
 V&=E_{x\sim P_{data}}[\log D(x)]+E_{x\sim P_G}[\log (1-D(x))]\\
 &=\int_xP_{data}(x)\log D(x)dx+\int_xP_G(x)\log (1-D(x))dx\\
 &=\int_x[P_{data}(x)\log D(x)+P_G(x)\log (1-D(x))]dx\\
 &=\int_x f(D)dx
 
-\end{align}
+\end{aligned}
 $$
 
 
@@ -191,7 +191,7 @@ $$
 将$D^*(x)$带入$V$
 
 $$
-\begin{align}
+\begin{aligned}
 \mathop{max}_DV&=\int_xP_{data}(x)\log \frac{P_{data}(x)}{P_{data}(x)+P_G(x)}dx+\int_xP_G(x)\log (1-\frac{P_{data}(x)}{P_{data}(x)+P_G(x)})dx\\
 &=\int_xP_{data}(x)\log \frac{P_{data}(x)}{P_{data}(x)+P_G(x)}dx+\int_xP_G(x)\log \frac{P_{G}(x)}{P_{data}(x)+P_G(x)}dx\\
 &=\int_xP_{data}(x)\log \frac{\frac{1}{2}P_{data}(x)}{\frac{1}{2}(P_{data}(x)+P_G(x))}dx+\int_xP_G(x)\log \frac{\frac{1}{2}P_{G}(x)}{\frac{1}{2}(P_{data}(x)+P_G(x))}dx\\
@@ -199,7 +199,7 @@ $$
 &=-2\log 2+D_{KL}(P_{data}||\frac{P_{data}+P_G}{2})+D_{KL}(P_{G}||\frac{P_{data}+P_G}{2})\\
 &=-2\log 2+D_{JS}(P_{data}||P_G)
 
-\end{align}
+\end{aligned}
 $$
 
 证毕。
