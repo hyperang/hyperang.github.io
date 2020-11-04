@@ -1,6 +1,6 @@
 # Site settings 配置站点
 title: 'Hyperang'
-description: 'Don\'t Panic!'
+description: "Don't Panic!"
 keywords: 'your web keywords, another keywords'
 url: 'https://hyperang.github.io' # your host
 
