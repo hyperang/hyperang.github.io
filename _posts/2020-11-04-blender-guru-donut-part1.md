@@ -370,7 +370,7 @@ Blender入门，内容为 [Blender Guru][link-1] 的 [tutorial][link-2] 的第�
 
 
 
-![c](C:\Users\Hyper\Desktop\Notes\blender\assets\camera.png)
+![c]({{site.url}}\assets\blender-guru-donut-part1\camera.png)
 
 
 

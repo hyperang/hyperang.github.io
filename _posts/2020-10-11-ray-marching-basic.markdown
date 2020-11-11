@@ -5,7 +5,7 @@ date:   2020-10-11 18:00:00 +0800
 tags: 图形学
 color: rgb(255,90,90)
 cover: '../assets/Ray%20Marching%20Basic/First%20Ball.jpg'
-subtitle: 'First Ball'
+subtitle: 'Shadertoy'
 ---
 Ray Marching入门，主要整理了 [The Art of Code][link-1] 的 [tutorial][link-2]。
 
