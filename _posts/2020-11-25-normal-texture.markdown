@@ -273,7 +273,7 @@ fixed4 frag(v2f i) : SV_Target {
 
 ### ShaderLab中在世界空间使用切线空间的法线纹理
 
-在Vertex Shader中将顶点的切线坐标转换为世界坐标。
+在Vertex Shader中将顶点的切线坐标转传递给Fragment Shader。
 
 ```glsl
 // Vertex Shader
