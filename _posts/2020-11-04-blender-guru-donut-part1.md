@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Blender基础"
+title:  "Blender基础 Level1"
 date:   2020-11-04 21:35:00 +0800
 tags: Blender
 color: rgb(255,90,90)
