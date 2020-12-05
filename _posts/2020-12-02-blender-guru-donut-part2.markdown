@@ -150,7 +150,7 @@ Blender入门，内容为 [Blender Guru][link-1] 的 [tutorial][link-2] 的第�
 
 调低 Displacement Node 中 Scale 属性的值，得到效果如下。
 
-![pt6]({{site.url}}\assets\\pt6.jpg)
+![pt6]({{site.url}}\assets\blender-guru-donut-part2\pt6.jpg)
 
 此时甜甜圈表面更像是墙壁而不是食物，给其增加一点 Subserface 并设置 Subserface Color，使得表面看上去更加柔软。
 
